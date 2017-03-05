@@ -1,0 +1,54 @@
+<h1>Pure vs Impure Pipes</h1>
+
+<h2>Example One - Objects</h2>
+
+<form>
+  First Name: <input type="text" name="firstName" [(ngModel)]="examplePerson.firstName" /> <br />
+  Last Name: <input type="text" name="lastName" [(ngModel)]="examplePerson.lastName" />
+</form>
+
+<h3>Person Result</h3>
+
+<p>
+  Showing changed values directly: 
+    {{ examplePerson.firstName }} 
+    {{ examplePerson.lastName }} <br />
+  Using a custom pure JSON pipe: {{ examplePerson | customJson }} <br />
+  Using built in impure JSON pipe: {{ examplePerson | json }}
+</p>
+
+<h2>Example Two - Arrays</h2>
+
+<form>
+  Enter first name: <input type="text" name="formPerson.firstName" [(ngModel)]="formPerson.firstName" /> <br />
+  Enter last name: <input type="text" name="formPerson.lastName" [(ngModel)]="formPerson.lastName" /> <br />
+  Are they a player?: <input type="checkbox" name="formPerson.isPlayer" [(ngModel)]="formPerson.isPlayer" /> <br />
+  <button (click)="savePerson()">Save Person</button>
+</form>
+
+<h3>People List - Using *ngFor and no pipes</h3>
+
+<ul>
+  <li *ngFor="let person of examplePeople">
+    {{ person.firstName }} {{ person.lastName }} ({{ person.isPlayer ? "Player" : "Fan"}})
+    <a href="javascript:void(0)" (click)="editPerson(person)">Edit</a>
+  </li>
+</ul>
+
+<h3>Player List - Using Pure Pipe Filter</h3>
+
+<ul>
+  <li *ngFor="let person of (examplePeople | playerOnly)">
+    {{ person.firstName }} {{ person.lastName }} ({{ person.isPlayer ? "Player" : "Fan"}})
+    <a href="javascript:void(0)" (click)="editPerson(person)">Edit</a>
+  </li>
+</ul>
+
+<h3>Player List - Using Impure Pipe Filter</h3>
+
+<ul>
+  <li *ngFor="let person of (examplePeople | playerOnlyImpure)">
+    {{ person.firstName }} {{ person.lastName }} ({{ person.isPlayer ? "Player" : "Fan"}})
+    <a href="javascript:void(0)" (click)="editPerson(person)">Edit</a>
+  </li>
+</ul>
